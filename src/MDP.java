@@ -3,11 +3,11 @@ import java.util.Arrays;
 public class MDP {
 
     /*information of the environment*/
-    public int row;
-    public int column;
-    public double transfer_reward;
-    public double discount_rate;
-    public double epsilon;
+    protected int row;
+    protected int column;
+    protected double transfer_reward;
+    protected double discount_rate;
+    protected double epsilon;
     protected double delta;
     protected double[][] Reward;
     protected char[][] Policy;
@@ -15,22 +15,21 @@ public class MDP {
     protected double[][] UPrime;
 
     /*information of actions*/
-    public String[] actions = {"left", "right", "up", "down"};
-    public double pRightExecution;
-    public double pErrorExecution1;
-    public double pErrorExecution2;
-    public double pErrorExecution3;
+    protected double pRightExecution;
+    protected double pErrorExecution1;
+    protected double pErrorExecution2;
+    protected double pErrorExecution3;
 
     /*information of walls*/
-    public int wall_row1;
-    public int wall_row2;
-    public int wall_column1;
-    public int wall_column2;
+    protected int wall_row1;
+    protected int wall_row2;
+    protected int wall_column1;
+    protected int wall_column2;
 
     /*information of termination*/
-    public int terminal_row1, terminal_row2, terminal_row3;
-    public int terminal_column1, terminal_column2, terminal_column3;
-    public int reward1, reward2, reward3;
+    protected int terminal_row1, terminal_row2, terminal_row3;
+    protected int terminal_column1, terminal_column2, terminal_column3;
+    protected int reward1, reward2, reward3;
 
     /*calculate the value of delta*/
 //    private double calculate_delta(double eps, double gamma) {
@@ -38,7 +37,7 @@ public class MDP {
 //    }
 
     /*initialize the mdp problem*/
-    public void init() {
+    protected void init() {
         /*initial with immediate reward*/
         Reward = new double[row][column];
         for (int i=0; i < row; i++) {
@@ -83,35 +82,35 @@ public class MDP {
     }
 
     /*Action left*/
-    private double move_L(int row, int col) {
+    protected double move_L(int row, int col) {
         if (col == 0 || (row == wall_row1 && col == wall_column1 + 1) || (row == wall_row2 && col == wall_column2 + 1))
             return discount_rate * Utility[row][col] + Reward[row][col];
         else return discount_rate * Utility[row][col-1] + Reward[row][col-1];
     }
 
     /*Action right*/
-    private double move_R(int row, int col) {
+    protected double move_R(int row, int col) {
         if (col == this.column-1 || (row == wall_row1 && col == wall_column1 - 1) || (row == wall_row2 && col == wall_column2 - 1))
             return discount_rate * Utility[row][col] + Reward[row][col];
         else return discount_rate * Utility[row][col+1] + Reward[row][col+1];
     }
 
     /*Action up*/
-    private double move_U(int row, int col) {
+    protected double move_U(int row, int col) {
         if (row == this.row-1 || (row == wall_row1 - 1 && col == wall_column1) || (row == wall_row2 - 1 && col == wall_column2))
             return discount_rate * Utility[row][col] + Reward[row][col];
         else return discount_rate * Utility[row+1][col] + Reward[row+1][col];
     }
 
     /*Action down*/
-    private double move_D(int row, int col) {
+    protected double move_D(int row, int col) {
         if (row == 0 || (row == wall_row1 + 1 && col == wall_column1) || (row == wall_row2 + 1 && col == wall_column2))
             return discount_rate * Utility[row][col] + Reward[row][col];
         else return discount_rate * Utility[row-1][col] + Reward[row-1][col];
     }
 
     /*calculate the Q value*/
-    private double calculate_Q (int r, int c, int flag) {
+    protected double calculate_Q (int r, int c, int flag) {
         switch (flag) {
             case 0 -> {
                 return pRightExecution * move_L(r, c) + pErrorExecution3 * move_R(r, c) +

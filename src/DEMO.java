@@ -15,12 +15,12 @@ public class DEMO {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
         MDP_VI mdp1 = new MDP_VI();
-        MDP_VI mdp2 = new MDP_VI();
+        MDP_PI mdp2 = new MDP_PI();
 
         while((line = br.readLine())!= null) {
 
             /*skip empty line and comment*/
-            if (line.length() ==0 || line.charAt(0) == '#') continue;
+            if (line.length() ==0 || line.charAt(0) == '#') ;
             else {
                 System.out.println(line);
                 /*divide the whole line with title and value*/
@@ -127,7 +127,8 @@ public class DEMO {
 
         /*initialize the problem of policy iteration*/
         mdp2.init();
-
+        /*start policy_iteration*/
+        mdp2.policy_iteration();
     }
 
 }
