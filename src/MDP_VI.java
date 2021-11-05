@@ -1,11 +1,5 @@
 public class MDP_VI extends MDP{
 
-    /*function that update Utility with UPrime*/
-    private void Uclone(double[][] Utility, double[][] UPrime) {
-        for (int i = 0; i<row; i++) {
-            Utility[i] = UPrime[i].clone();
-        }
-    }
 
     /*calculate the value of delta*/
     private double calculate_delta(double eps, double gamma) {

@@ -1,7 +1,30 @@
+import java.util.Random;
+
 public class MDP_PI extends MDP {
 
     protected int ActNum;
     protected boolean flag;
+
+
+    protected void iniPolicy() {
+        /*initial with a Policy that go left at any state*/
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if ((i == wall_row1 && j == wall_column1) || (i == wall_row2 && j == wall_column2) ||
+                        (i == terminal_row1 && j == terminal_column1) || (i == terminal_row2 && j == terminal_column2) ||
+                        (i == terminal_row3 && j == terminal_column3)) continue;
+                else {
+                    Random random = new Random();
+                    switch (random.nextInt(4)) {
+                        case 0 -> Policy[i][j] = 'W';
+                        case 1 -> Policy[i][j] = 'E';
+                        case 2 -> Policy[i][j] = 'N';
+                        case 3 -> Policy[i][j] = 'S';
+                    }
+                }
+            }
+        }
+    }
 
     /*rewrite the bellman function for Policy iteration*/
     protected void bellman(int row, int col) {
@@ -25,16 +48,13 @@ public class MDP_PI extends MDP {
 
     /*policy evaluation algorithm*/
     public void policy_evaluation(int[][] policy) {
-
+        /*original policy evaluate process*/
         for (int i = this.row - 1; i >= 0; i--) {
             for (int j = 0; j < column; j++) {
                 if ((i == wall_row1 && j == wall_column1) || (i == wall_row2 && j == wall_column2) ||
                         (i == terminal_row1 && j == terminal_column1) || (i == terminal_row2 && j == terminal_column2) ||
                         (i == terminal_row3 && j == terminal_column3)) continue;
                 else Utility[i][j] = calculate_Q(i, j, policy[i][j]);
-
-//        calculate_Q()
-
             }
         }
     }
@@ -43,6 +63,9 @@ public class MDP_PI extends MDP {
     public void policy_iteration() {
 
         System.out.println("\n******Policy iteration Algorithm******");
+
+        iniPolicy();
+
         /*transfer Policy to number state*/
         int[][] Policy_Num = new int[row][column];
         for (int i = 0; i < row; i++) {
@@ -59,12 +82,34 @@ public class MDP_PI extends MDP {
             }
         }
 
+        int count = 1;
 
         do {
-
             policy_evaluation(Policy_Num);
             flag = true;
 
+            System.out.println(count++ + "times of iteration");
+
+//            /*print the policy*/
+//            System.out.println("Policy");
+//            for (int i = row - 1; i >= 0; i--) {
+//                for (int j = 0; j < column; j++) {
+//                    System.out.print(Policy[i][j] + "  ");
+//                }
+//                System.out.print("\n");
+//                //System.out.println(Arrays.toString(Policy[i]));
+//            }
+//            /*print the policy*/
+//            System.out.println("Policy Number");
+//            for (int i = row - 1; i >= 0; i--) {
+//                for (int j = 0; j < column; j++) {
+//                    System.out.print(Policy_Num[i][j] + "  ");
+//                }
+//                System.out.print("\n");
+//                //System.out.println(Arrays.toString(Policy[i]));
+//            }
+
+            /*if every state got the best policy, stop*/
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < column; j++) {
                     if ((i == wall_row1 && j == wall_column1) || (i == wall_row2 && j == wall_column2) ||
