@@ -1,6 +1,5 @@
 public class MDP_VI extends MDP{
 
-
     /*calculate the value of delta*/
     private double calculate_delta(double eps, double gamma) {
         return eps*(1-gamma)/gamma;
@@ -15,7 +14,7 @@ public class MDP_VI extends MDP{
 
         do {
             count++;
-            Uclone(Utility, UPrime);
+            Uupdate(Utility, UPrime);
             delta = 0;
 
             for (int i = this.row - 1; i >= 0; i--) {

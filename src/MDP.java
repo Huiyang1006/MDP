@@ -163,7 +163,7 @@ public class MDP {
 
 
     /*function that update Utility with UPrime*/
-    protected void Uclone(double[][] Utility, double[][] UPrime) {
+    protected void Uupdate(double[][] Utility, double[][] UPrime) {
         for (int i = 0; i<row; i++) {
             Utility[i] = UPrime[i].clone();
         }

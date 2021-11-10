@@ -1,6 +1,5 @@
 public class MDP_MPI extends MDP_PI{
 
-
     /*policy evaluation algorithm for Modified Policy Iteration*/
     public void policy_evaluation(int[][] policy) {
         /*original policy evaluate process*/
@@ -13,8 +12,8 @@ public class MDP_MPI extends MDP_PI{
             }
         }
 
-        /*additional value iterate process. In this case, since the state space is small, I choose to iterate 2 times*/
-        int count = 2;
+        /*additional value iterate process. In this case, since the state space is small, I choose to iterate 3 times*/
+        int count = 3;
         do {
             count--;
             for (int i = this.row - 1; i >= 0; i--) {
@@ -25,10 +24,8 @@ public class MDP_MPI extends MDP_PI{
                     else UPrime[i][j] = calculate_Q(i, j, policy[i][j]);
                 }
             }
+            Uupdate(Utility, UPrime);
         } while (count>0);
-
-        Uclone(Utility, UPrime);
-
     }
 
 }

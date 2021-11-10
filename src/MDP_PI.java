@@ -5,7 +5,7 @@ public class MDP_PI extends MDP {
     protected int ActNum;
     protected boolean flag;
 
-
+    /*initialize the random Policy*/
     protected void iniPolicy() {
         /*initial with a Policy that go left at any state*/
         for (int i = 0; i < row; i++) {
@@ -81,14 +81,14 @@ public class MDP_PI extends MDP {
                 }
             }
         }
-
-        int count = 1;
+        /*for test*/
+        //int count = 1;
 
         do {
             policy_evaluation(Policy_Num);
             flag = true;
 
-            System.out.println(count++ + "times of iteration");
+            //System.out.println(count++ + "times of iteration");
 
 //            /*print the policy*/
 //            System.out.println("Policy");

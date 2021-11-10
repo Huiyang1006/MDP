@@ -10,7 +10,7 @@ public class DEMO {
 //        System.out.println(System.getProperty("user.dir"));
 //        System.out.println(textFile);
 
-        /*get the txt file line by line*/
+        /*open the file*/
         File file = new File(textFile);
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
@@ -18,6 +18,7 @@ public class DEMO {
         //MDP_PI mdp3 = new MDP_PI();
         MDP_MPI mdp3 = new MDP_MPI();
 
+        /*get the txt file line by line*/
         while((line = br.readLine())!= null) {
 
             /*skip empty line and comment*/
